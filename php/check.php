@@ -9,6 +9,7 @@
     $Password = filter_var(trim($_POST['Password']),FILTER_SANITIZE_STRING);
     $Phone = filter_var(trim($_POST['Phonenum']),FILTER_SANITIZE_STRING);
     $BirthDate = filter_var(trim($_POST['BirthDate']),FILTER_SANITIZE_STRING);
+    //Проверка пароля
   if(mb_strlen($Mail)<5 || mb_strlen($Mail)>90){
       echo "Недопустимая длина логина";
       exit();
@@ -24,8 +25,9 @@ require "blocks/connect.php";
          echo "Почтовый адрес уже используется";
          exit();
      }
+     //Внесение записи о регистрации пользователя в бд
  $mysql->query("INSERT INTO `userinfo` (`User_Name`,`User_mail`,`User_Phone`,`User_Birth`,`User_Pass`,`User_Second_Name`,`User_Otchestvo`)
 VALUES ('$name', '$Mail', '$Phone', '$BirthDate','$Password', '$lastname', '$fathname')");
 $mysql->close();
-header('Location: /');
+header('Location: /?reg=1');
 ?>

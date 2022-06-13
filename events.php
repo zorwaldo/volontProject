@@ -17,6 +17,7 @@
 	<section class="Events">
 		<div class="container">
 			<div class="Events__wrapper">
+				<!-- Список фильтров. Логика фильтров в разработке -->
 				<div class="Events__item">
 					<fieldset class="Events__question">
 						<legend>
@@ -26,7 +27,6 @@
 							<label><input type="radio">Спортиваня</label>
 							<label><input type="radio">Культурная</label>
 							<label><input type="radio">Социальная</label>
-							<label><input type="radio">Офигенная</label>
 						</div>
 					</fieldset>
 					<fieldset class="Events__question">
@@ -76,17 +76,20 @@
 					</button>
 				</div>
 				<div class="Events__item">
+					<!-- Ниже идёт запрос на получение и вывод информации о событиях из базы данных -->
 				<?php 
 				$id=(int)$_COOKIE['user'];
 				$result = mysqli_query($mysql,"SELECT DISTINCT event.* FROM `event` LEFT JOIN `userinfo` ON event.User_ID = userinfo.User_ID LEFT JOIN `ychastie` on `userinfo`.User_ID = `ychastie`.User_ID");
-   	while($info = mysqli_fetch_assoc($result)){  
-	$isOtcled = false;
-	$evtID = (int)$info['ID_Event'];
-    $resultOtcl = mysqli_query($mysql, "SELECT * FROM `ychastie` WHERE User_ID='$id' AND ID_Event='$evtID'");
-    if($info2 = mysqli_fetch_assoc($resultOtcl)){
-        $isOtcled= true;
-    }
-	?>
+				while($info = mysqli_fetch_assoc($result)){ 
+					//Переменная isOtcled проверят откликался ли уже пользователь на вакансию. Если откликался то кнопка отклика заменяется на надпись 
+					$isOtcled = false;
+					$evtID = (int)$info['ID_Event'];
+					$resultOtcl = mysqli_query($mysql, "SELECT * FROM `ychastie` WHERE User_ID='$id' AND ID_Event='$evtID'");
+					//Если существует запись пользователя об участии то переменная становится true
+					if($info2 = mysqli_fetch_assoc($resultOtcl)){
+						$isOtcled= true;
+					}
+				?>
 					<div class="descr">
 						<div class="descr__item">
 							<a href="event.php?id=<?php echo $info['ID_Event']?>" style="text-decoration: none;" class="descr__title">
@@ -104,7 +107,9 @@
 							<p class="desk__param">
 								Параметр: Значение
 							</p>
+							<!-- Ниже код обработки отклика -->
 						<?php if($isOtcled==false) {?>
+							<!-- Отклик обрабатывается в файле otclick.php -->
 							<form action="php/otclick.php" method="post">
         						<input type="hidden"  name="Evt" value="<?php echo $info['ID_Event']?>">  
 								<input type="hidden"  name="events" value="events">   
@@ -114,9 +119,7 @@
 								<p class="desk__param">
 								Вы уже откликнулись на эту вакансию
 							</p>
-								<?php }?>
-
-							
+							<?php }?>
 						</div>
 					</div>
 					<?php }?>

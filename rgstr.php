@@ -14,14 +14,15 @@
     <?php require "php/header.php"?>
     <section class="Reg">
     <div class="container">
+        <!-- Форма регистрации. Данные, введённые пользователем передаются в файл check.php и там обрабатываются и заносятся в бд. -->
 <form action="php/check.php" method="post"> 
-    <input class="forms__input" type="text" name="name" placeholder="Имя"> <br>
-    <input class="forms__input" type="text" name="lastname" placeholder="Фамилия"><br>
-    <input class="forms__input" type="text"  name="fathname" placeholder="Отчество"><br>
-    <input class="forms__input" type="email" name="Mail" placeholder="Почта"><br>
-    <input class="forms__input" type="text" name="Phonenum" placeholder="Телефон"><br>
-    <input class="forms__input" type="date" name="BirthDate" placeholder="Дата рождения"><br>
-    <input class="forms__input" type="password" name="Password" placeholder="Пароль"><br>
+    <input class="forms__input" type="text" required name="name" placeholder="Имя"> <br>
+    <input class="forms__input" type="text" required name="lastname" placeholder="Фамилия"><br>
+    <input class="forms__input" type="text" required  name="fathname" placeholder="Отчество"><br>
+    <input class="forms__input" type="email" required name="Mail" placeholder="Почта"><br>
+    <input class="forms__input" type="text" required name="Phonenum" placeholder="Телефон"><br>
+    <input class="forms__input" type="date" required name="BirthDate" placeholder="Дата рождения"><br>
+    <input class="forms__input" type="password" required name="Password" placeholder="Пароль"><br>
     <button class="forms__button forms__button-reg" type="submit">Отправить</button>
     <a class="forms__link forms__link-reg" href="auth.php">Войти</a>
 </form>

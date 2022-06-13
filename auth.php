@@ -14,9 +14,10 @@
     <?php require "php/header.php"?>
     <section class="Entry">
     <div class="container">
+        <!-- Данные авторизации проверяются в файле authcheck.php -->
     <form class="forms" action="php/authcheck.php" method="post"> 
-        <input class="forms__input" type="email" name="Mail" placeholder="Почта"><br>
-        <input class="forms__input" type="password" name="Password" placeholder="Пароль"><br>
+        <input class="forms__input" required type="email" name="Mail" placeholder="Почта"><br>
+        <input class="forms__input" required type="password" name="Password" placeholder="Пароль"><br>
         <button class="forms__button" type="submit">Отправить</button><br>
         <a class="forms__link" href="rgstr.php">Зарегистрироваться</a>
     </section>

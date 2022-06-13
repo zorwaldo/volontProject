@@ -2,6 +2,7 @@
   ini_set('error_reporting', E_ALL);
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
+  //Когда организатор подтвердил участие волонтёра в событии его статус работы изменяется на "В процессе работы"
   require "blocks/connect.php";
 $id=(int)$_POST['Usr'];
 $evetID=(int)$_POST['Evt'];

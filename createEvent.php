@@ -12,18 +12,21 @@
 	<?php require "php/header.php"?>
 	<section class="Create">
 		<div class="container">
+			<!-- Если пользователь авторизован ему будет выведена форма. В ином случае выводится сообщение о просьбе в авторизации -->
+			<?php if(isset($_COOKIE['user'])){?>
+			<!-- Форма создания события. Данные обрабатываются и заносятся в бд в файле php/createEvent.php -->
 			<form action="php/createEvent.php" method="post">
 				<div class="Create__item">
 					<label class="Create__title"> Название события</label>
-					<input class="forms__input forms__input-create"  type="text" name="name" placeholder="">
+					<input required class="forms__input forms__input-create"  type="text" name="name" placeholder="">
 				</div>
 				<div class="Create__item">
 					<label class="Create__title"> Описание события</label>
-					<textarea name="opisanie"></textarea>
+					<textarea required name="opisanie"></textarea>
 				</div>
 				<div class="Create__item">
 					<label class="Create__title"> Адрес события</label>
-					<input class="forms__input forms__input-create"  type="text"  name="adress" placeholder="">
+					<input required class="forms__input forms__input-create"  type="text"  name="adress" placeholder="">
 				</div>
 				<div class="Create__item Create__item-no">
 					<label class="Create__title"> Направленность<br> вашего события?</label>
@@ -70,6 +73,9 @@
 				</div>
 				<button class="forms__button" type="submit">Готово</button>
 			</form>
+			<?php }else{?>
+				<h3 style="text-align: center; margin-top:10 px; font-size: 22px;">Вам необходимо авторизоваться</h3>
+				<?php }?>
 		</div>
 	</section>
 </body>

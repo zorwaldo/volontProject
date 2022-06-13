@@ -1,4 +1,5 @@
 <?php 
+//Код ниже позволяет посмотреть отчёт об ошибках php
   ini_set('error_reporting', E_ALL);
   ini_set('display_errors', 1);
   ini_set('display_startup_errors', 1);
@@ -12,16 +13,16 @@ $userID = (int)$_COOKIE['user'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Арсений Волков гондон</title>
+    <title>Событие</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 <?php require "php/header.php"?>
+<!-- Запрос на получение информации о событии и вывод информации на страницу -->
 <?php $result = mysqli_query($mysql,"SELECT * FROM `event` where ID_Event='$id'");
    while($info = mysqli_fetch_assoc($result)){  ?>
   <section class="Specific">
 		<div class="container">
-      
 			<h2 class="Specific__title">
             <?php echo $info['Event_name']?>
 			</h2>
@@ -71,9 +72,11 @@ $userID = (int)$_COOKIE['user'];
             
 		</div>
 	</section>
-    
-
-
+<!-- Код ниже проверяет 
+ 1 - Кто просматривает страницу - организатор или волонтёр
+ 2 - если организатор то выводится список откликнувшихся людей и кнопки для взаимодействия с откликами
+ 3 - если волонтер то выводится кнопка отклика, либо если отклик был осуществлен выводится надпись
+-->
     <?php 
    $isOtcled = false;
     $resultOtcl = mysqli_query($mysql, "SELECT * FROM `ychastie` WHERE User_ID='$userID' AND ID_Event='$id'");
@@ -93,16 +96,16 @@ $userID = (int)$_COOKIE['user'];
 							<img src="<?php echo $info['User_Pic']?>" width="229" height="229" alt="Аватар">
                             <?php if($info['Worked']=='В процессе работы'){ ?>
                                 <form action="php/completework.php" method="post">
-     <input type="hidden"  name="Evt" value="<?php echo $_GET['id']?>">    
-        <input type="hidden"  name="Usr" value="<?php echo $info['User_ID']?>">  
-        <button style="cursor: pointer;" class="Feedback__button" type="submit">Работа выполнена</button>
-    </form><?php }else{?>
-   <form action="php/getwork.php" method="post">
-        <input type="hidden"  name="Evt" value="<?php echo $_GET['id']?>">    
-        <input type="hidden"  name="Usr" value="<?php echo $info['User_ID']?>">  
-        <button style="cursor: pointer;" type="submit" class="Feedback__button">Принять в работу</button>
-    </form>
-    <?php }?>
+                                    <input type="hidden"  name="Evt" value="<?php echo $_GET['id']?>">    
+                                        <input type="hidden"  name="Usr" value="<?php echo $info['User_ID']?>">  
+                                        <button style="cursor: pointer;" class="Feedback__button" type="submit">Работа выполнена</button>
+                                </form><?php }else{?>
+                                <form action="php/getwork.php" method="post">
+                                        <input type="hidden"  name="Evt" value="<?php echo $_GET['id']?>">    
+                                        <input type="hidden"  name="Usr" value="<?php echo $info['User_ID']?>">  
+                                        <button style="cursor: pointer;" type="submit" class="Feedback__button">Принять в работу</button>
+                                    </form>
+                                    <?php }?>
 						</div>
 					</div>
 					<div class="Feedback__item">
@@ -124,6 +127,7 @@ $userID = (int)$_COOKIE['user'];
    </ul>
 </div>
 </section>
+<!-- Проверка откликался ли уже пользователь на вакансию -->
     <?php }else if($isOtcled==false){?>
         <form action="php/otclick.php" method="post">
         <input type="hidden" id="Evt" name="Evt" value="<?php echo $_GET['id']?>">    
