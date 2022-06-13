@@ -101,12 +101,6 @@
 							<p class="desk__param desk__param-border">
 								Возраст: <?php echo $info['Age_OT']?> - <?php echo $info['Age_DO']?>
 							</p>
-							<p class="desk__param">
-								Работодатель: <?php echo $info['User_Name'] ?>
-							</p>
-							<p class="desk__param">
-								Параметр: Значение
-							</p>
 							<!-- Ниже код обработки отклика -->
 						<?php if($isOtcled==false) {?>
 							<!-- Отклик обрабатывается в файле otclick.php -->
